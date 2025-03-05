@@ -26,6 +26,17 @@ public class PropTest {
     
     assertEquals(50, prop.getHealth());
     }
+
+    @Test
+    public void testPropDestruction() {
+    
+    Prop prop = new Prop(100);
+    
+    prop.receiveDamage(150);
+    
+    assertEquals(0, prop.getHealth());
+    assertTrue(prop.isDestroyed());
+    }
     
 }    
 
