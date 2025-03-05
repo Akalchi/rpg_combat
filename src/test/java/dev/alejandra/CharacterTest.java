@@ -13,4 +13,12 @@ public class CharacterTest {
         assertEquals(1000, character.getHealth());
     }
 
+    @Test
+    public void testCharacterInitialLevel() {
+      
+        Character character = new Character();
+        
+        assertEquals(1, character.getLevel());
+    }
+
 }
