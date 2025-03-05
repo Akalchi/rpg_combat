@@ -1,7 +1,6 @@
 package dev.alejandra;
 
 public class Character {
-
     private int health = 1000;
     private int level = 1;
     private boolean alive = true;   
@@ -9,7 +8,7 @@ public class Character {
     public int getHealth() {
         return health;
     }
-
+    
     public int getLevel() {
         return level;
     }
@@ -25,7 +24,16 @@ public class Character {
             alive = false;
         }
     }
+    
 
+    public void heal(int amount) {
+        if (!alive) return;
+        
+        health += amount;
+        if (health > 1000) {
+            health = 1000;
+        }
 
-
+    }
 }
+

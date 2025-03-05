@@ -81,11 +81,11 @@ public class CharacterTest {
         character.receiveDamage(1100);
         
         character.heal(50);
-        
+
         assertEquals(0, character.getHealth());
         assertFalse(character.isAlive());
     }
 }
 
     
-}
+
