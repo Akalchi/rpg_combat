@@ -1,10 +1,13 @@
 package dev.alejandra;
 
+import java.util.HashSet;
+import java.util.Set;
 
 public abstract class Character {
     private int health = 1000;
     private int level = 1;
-    private boolean alive = true;   
+    private boolean alive = true; 
+    private Set<String> factions = new HashSet<>();  
 
     public int getHealth() {
         return health;
@@ -24,6 +27,24 @@ public abstract class Character {
 
     public abstract int getRange();
 
+     
+    public void joinFaction(String faction) {
+        factions.add(faction);
+    }
+    
+    public void leaveFaction(String faction) {
+        factions.remove(faction);
+    }
+    
+    public boolean isInFaction(String faction) {
+        return factions.contains(faction);
+    }
+    
+    public boolean isAlly(Character other) {
+        return factions.stream()
+                .anyMatch(faction -> other.isInFaction(faction));
+    }
+
     public void receiveDamage(int amount) {
         health -= amount;
         if (health <= 0) {
@@ -41,9 +62,12 @@ public abstract class Character {
             throw new IllegalArgumentException("Cannot damage self");
         }
         
-        // Check if the attack is within range
         if (distance > getRange()) {
             throw new IllegalArgumentException("Target is out of range");
+        }
+
+        if (isAlly(target)) {
+            throw new IllegalArgumentException("Cannot damage ally");
         }
         
         int damageAmount = calculateDamage(target, amount);
@@ -65,8 +89,8 @@ public abstract class Character {
     }
     
     public void heal(Character target, int amount) {
-        if (target != this) {
-            throw new IllegalArgumentException("Can only heal self");
+        if (target != this && !isAlly(target)) {
+            throw new IllegalArgumentException("Can only heal self or allies");
         }
         
         if (!target.alive) return;
