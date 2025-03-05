@@ -16,5 +16,15 @@ public class PropTest {
         assertEquals(2000, tree.getHealth());
         assertFalse(tree.isDestroyed());
     }
+
+    @Test
+    public void testPropReceiveDamage() {
+   
+    Prop prop = new Prop(100);
+    
+    prop.receiveDamage(50);
+    
+    assertEquals(50, prop.getHealth());
+}
 }    
 
