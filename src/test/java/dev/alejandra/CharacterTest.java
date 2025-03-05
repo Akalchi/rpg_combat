@@ -1,6 +1,8 @@
 package dev.alejandra;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
 
 public class CharacterTest {
@@ -19,6 +21,14 @@ public class CharacterTest {
         Character character = new Character();
         
         assertEquals(1, character.getLevel());
+    }
+
+     @Test
+    public void testCharacterInitiallyAlive() {
+
+        Character character = new Character();
+        
+        assertTrue(character.isAlive());
     }
 
 }
