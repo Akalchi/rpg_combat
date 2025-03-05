@@ -1,6 +1,7 @@
 package dev.alejandra;
 
-public class Character {
+
+public abstract class Character {
     private int health = 1000;
     private int level = 1;
     private boolean alive = true;   
@@ -21,6 +22,8 @@ public class Character {
         return alive;
     }
 
+    public abstract int getRange();
+
     public void receiveDamage(int amount) {
         health -= amount;
         if (health <= 0) {
@@ -30,8 +33,17 @@ public class Character {
     }
 
     public void dealDamage(Character target, int amount) {
+        dealDamage(target, amount, getRange());
+    }
+
+    public void dealDamage(Character target, int amount, int distance) {
         if (target == this) {
             throw new IllegalArgumentException("Cannot damage self");
+        }
+        
+        // Check if the attack is within range
+        if (distance > getRange()) {
+            throw new IllegalArgumentException("Target is out of range");
         }
         
         int damageAmount = calculateDamage(target, amount);
@@ -52,7 +64,7 @@ public class Character {
         return amount;
     }
     
-    public void heal(Character target,int amount) {
+    public void heal(Character target, int amount) {
         if (target != this) {
             throw new IllegalArgumentException("Can only heal self");
         }
@@ -68,6 +80,5 @@ public class Character {
     public void heal(int amount) {
         heal(this, amount);
     }
- 
 }
 
