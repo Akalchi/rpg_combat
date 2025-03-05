@@ -18,5 +18,14 @@ public class Character {
         return alive;
     }
 
-    
+    public void receiveDamage(int amount) {
+        health -= amount;
+        if (health <= 0) {
+            health = 0;
+            alive = false;
+        }
+    }
+
+
+
 }
