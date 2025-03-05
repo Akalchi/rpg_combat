@@ -2,6 +2,7 @@ package dev.alejandra;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -85,7 +86,58 @@ public class CharacterTest {
         assertEquals(0, character.getHealth());
         assertFalse(character.isAlive());
     }
+
+     @Test
+    public void testCannotDamageSelf() {
+        
+        Character attacker = new Character();
+        
+        assertThrows(IllegalArgumentException.class, () -> {
+    
+           attacker.dealDamage(attacker, 100);
+
+        });
+    }
+
+    @Test
+    public void testOnlySelfCanHeal() {
+
+        Character healer = new Character();
+        Character patient = new Character();
+        patient.receiveDamage(100);
+        
+        assertThrows(IllegalArgumentException.class, () -> {
+           
+            healer.heal(patient, 50);
+        });
+    }
+
+    @Test
+    public void testDamageReducedWhenTargetIs5LevelsHigher() {
+       
+        Character attacker = new Character();
+        Character defender = new Character();
+        defender.setLevel(6);
+        
+        attacker.dealDamage(defender, 100);
+        
+        assertEquals(1050, defender.getHealth()); 
+    }
+    
+    @Test
+    public void testDamageIncreasedWhenAttackerIs5LevelsHigher() {
+        
+        Character attacker = new Character();
+        Character defender = new Character();
+        attacker.setLevel(6);
+        
+        attacker.dealDamage(defender, 100);
+        
+        assertEquals(850, defender.getHealth()); 
+    }
 }
+
+
 
     
 
