@@ -9,10 +9,17 @@ import org.junit.jupiter.api.Test;
 
 public class CharacterTest {
 
+    private class TestCharacter extends Character {
+        @Override
+        public int getRange() {
+            return 10; 
+        }
+    }
+
      @Test
     public void testCharacterInitialHealth() {
 
-        Character character = new Character();
+        Character character = new TestCharacter();
         
         assertEquals(1000, character.getHealth());
     }
@@ -20,7 +27,7 @@ public class CharacterTest {
     @Test
     public void testCharacterInitialLevel() {
       
-        Character character = new Character();
+        Character character = new TestCharacter();
         
         assertEquals(1, character.getLevel());
     }
@@ -28,7 +35,7 @@ public class CharacterTest {
      @Test
     public void testCharacterInitiallyAlive() {
 
-        Character character = new Character();
+        Character character = new TestCharacter();
         
         assertTrue(character.isAlive());
     }
@@ -36,7 +43,7 @@ public class CharacterTest {
     @Test
     public void testReceiveDamage() {
      
-        Character character = new Character();
+        Character character = new TestCharacter();
         
         character.receiveDamage(100);
         
@@ -46,7 +53,7 @@ public class CharacterTest {
      @Test
     public void testDieWhenHealthReachesZero() {
        
-        Character character = new Character();
+        Character character = new TestCharacter();
         
         character.receiveDamage(1100);
     
@@ -57,7 +64,7 @@ public class CharacterTest {
     @Test
     public void testHeal() {
     
-        Character character = new Character();
+        Character character = new TestCharacter();
         character.receiveDamage(100);
         
         character.heal(50);
@@ -68,7 +75,7 @@ public class CharacterTest {
     @Test
     public void testCannotHealAboveMaxHealth() {
     
-        Character character = new Character();
+        Character character = new TestCharacter();
         
         character.heal(100);
         
@@ -78,7 +85,7 @@ public class CharacterTest {
     @Test
     public void testCannotHealDeadCharacter() {
        
-        Character character = new Character();
+        Character character = new TestCharacter();
         character.receiveDamage(1100);
         
         character.heal(50);
@@ -90,7 +97,7 @@ public class CharacterTest {
      @Test
     public void testCannotDamageSelf() {
         
-        Character attacker = new Character();
+        Character attacker = new TestCharacter();
         
         assertThrows(IllegalArgumentException.class, () -> {
     
@@ -102,8 +109,8 @@ public class CharacterTest {
     @Test
     public void testOnlySelfCanHeal() {
 
-        Character healer = new Character();
-        Character patient = new Character();
+        Character healer = new TestCharacter();
+        Character patient = new TestCharacter();
         patient.receiveDamage(100);
         
         assertThrows(IllegalArgumentException.class, () -> {
@@ -115,8 +122,8 @@ public class CharacterTest {
     @Test
     public void testDamageReducedWhenTargetIs5LevelsHigher() {
        
-        Character attacker = new Character();
-        Character defender = new Character();
+        Character attacker = new TestCharacter();
+        Character defender = new TestCharacter();
         defender.setLevel(6);
         
         attacker.dealDamage(defender, 100);
@@ -127,8 +134,8 @@ public class CharacterTest {
     @Test
     public void testDamageIncreasedWhenAttackerIs5LevelsHigher() {
         
-        Character attacker = new Character();
-        Character defender = new Character();
+        Character attacker = new TestCharacter();
+        Character defender = new TestCharacter();
         attacker.setLevel(6);
         
         attacker.dealDamage(defender, 100);

@@ -2,8 +2,6 @@ package dev.alejandra;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import dev.alejandra.MeleeFighter;
-import dev.alejandra.RangedFighter;
 
 import org.junit.jupiter.api.Test;
 
