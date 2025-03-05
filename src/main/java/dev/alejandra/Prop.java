@@ -16,4 +16,8 @@ public class Prop {
         return false;
     }
 
+    public void receiveDamage(int amount) {
+        health -= amount;
+    }
+
 }

@@ -25,6 +25,7 @@ public class PropTest {
     prop.receiveDamage(50);
     
     assertEquals(50, prop.getHealth());
-}
+    }
+    
 }    
 
