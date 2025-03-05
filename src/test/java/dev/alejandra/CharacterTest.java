@@ -121,7 +121,7 @@ public class CharacterTest {
         
         attacker.dealDamage(defender, 100);
         
-        assertEquals(1050, defender.getHealth()); 
+        assertEquals(950, defender.getHealth()); 
     }
     
     @Test
